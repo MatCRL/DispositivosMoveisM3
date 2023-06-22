@@ -1,0 +1,7 @@
+**/node_modules
+**/.data
+**/package-lock.json
+**/pnpm-lock.yaml
+trabalhos/M3/front-end/android/**
+
+trabalhos/M2/unimap/%ProgramData%/Microsoft/Windows/UUS/State/_active.uusver
