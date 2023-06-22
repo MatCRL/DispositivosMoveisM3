@@ -113,9 +113,7 @@ const Example = () => {
               onChangeText={(value) => setEmail(value)}
               onBlur={validateEmail}
             />
-            <FormControl.ErrorMessage>
-              {emailError}
-            </FormControl.ErrorMessage>
+            <FormControl.ErrorMessage>{emailError}</FormControl.ErrorMessage>
           </FormControl>
           <FormControl isInvalid={passwordError !== ""}>
             <FormControl.Label>Senha</FormControl.Label>
@@ -125,9 +123,7 @@ const Example = () => {
               onChangeText={(value) => setPassword(value)}
               onBlur={validatePassword}
             />
-            <FormControl.ErrorMessage>
-              {passwordError}
-            </FormControl.ErrorMessage>
+            <FormControl.ErrorMessage>{passwordError}</FormControl.ErrorMessage>
           </FormControl>
           <FormControl isInvalid={nameError !== ""}>
             <FormControl.Label>Nome</FormControl.Label>
@@ -137,9 +133,7 @@ const Example = () => {
               onChangeText={(value) => setName(value)}
               onBlur={validateName}
             />
-            <FormControl.ErrorMessage>
-              {nameError}
-            </FormControl.ErrorMessage>
+            <FormControl.ErrorMessage>{nameError}</FormControl.ErrorMessage>
           </FormControl>
           <FormControl isInvalid={lastNameError !== ""}>
             <FormControl.Label>Sobrenome</FormControl.Label>
@@ -149,14 +143,12 @@ const Example = () => {
               onChangeText={(value) => setLastName(value)}
               onBlur={validateLastName}
             />
-            <FormControl.ErrorMessage>
-              {lastNameError}
-            </FormControl.ErrorMessage>
+            <FormControl.ErrorMessage>{lastNameError}</FormControl.ErrorMessage>
           </FormControl>
           <Button
             mt="2"
             colorScheme="indigo"
-            isLoading={loading} // Utilize a variável loading para exibir o indicador de carregamento
+            isLoading={loading}
             onPress={handleSignUp}
           >
             Cadastrar
@@ -171,9 +163,7 @@ const Example = () => {
 export const SignUp = () => {
   return (
     <NativeBaseProvider>
-      <Center flex={1} px="3">
-        <Example />
-      </Center>
+      <Example />
     </NativeBaseProvider>
   );
 };

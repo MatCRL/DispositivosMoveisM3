@@ -3,24 +3,38 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import { TabNavigator } from "./TabNavigator";
-import { Icon } from "native-base";
+import { Icon, useColorModeValue } from "native-base";
 import { SignIn } from "../screens/SignIn";
 import { SignUp } from "../screens/SignUp";
 import { Profile } from "../screens/Profile";
 import { Settings } from "../screens/Settings";
 import { Maps } from "../screens/Maps";
 import { Areas } from "../screens/Areas";
+import {
+  ProfileStack,
+  SignInStack,
+  SignUpStack,
+  MapsStack,
+  AreasStack,
+  SettingsStack,
+} from "./StackNavigator";
 
 const Drawer = createDrawerNavigator();
 
 export const DrawerNavigator = () => {
+  const backgroundColorLabel = useColorModeValue("#00acf0", "#1a202c");
+  const backgroundColor = useColorModeValue("white", "#100");
+  const colorInactive = useColorModeValue("black", "grey");
   return (
     <Drawer.Navigator
       screenOptions={{
         headerShown: false,
-        drawerActiveBackgroundColor: "#aa18ea",
-        drawerActiveTintColor: "#fff",
-        drawerInactiveTintColor: "#333",
+        drawerStyle: {
+          backgroundColor: backgroundColor,
+        },
+        drawerActiveBackgroundColor: backgroundColorLabel,
+        drawerActiveTintColor: "white",
+        drawerInactiveTintColor: colorInactive,
         drawerLabelStyle: {
           marginLeft: -25,
           fontSize: 15,
@@ -43,7 +57,7 @@ export const DrawerNavigator = () => {
       />
       <Drawer.Screen
         name="Perfil"
-        component={Profile}
+        component={ProfileStack}
         options={{
           drawerIcon: ({ color }) => (
             <Icon
@@ -57,7 +71,7 @@ export const DrawerNavigator = () => {
       />
       <Drawer.Screen
         name="SignIn"
-        component={SignIn}
+        component={SignInStack}
         options={{
           drawerIcon: ({ color }) => (
             <Icon
@@ -71,7 +85,7 @@ export const DrawerNavigator = () => {
       />
       <Drawer.Screen
         name="SignUp"
-        component={SignUp}
+        component={SignUpStack}
         options={{
           drawerIcon: ({ color }) => (
             <Icon
@@ -85,7 +99,7 @@ export const DrawerNavigator = () => {
       />
       <Drawer.Screen
         name="Maps"
-        component={Maps}
+        component={MapsStack}
         options={{
           drawerIcon: ({ color }) => (
             <Icon
@@ -99,7 +113,7 @@ export const DrawerNavigator = () => {
       />
       <Drawer.Screen
         name="Areas"
-        component={Areas}
+        component={AreasStack}
         options={{
           drawerIcon: ({ color }) => (
             <Icon
@@ -113,7 +127,7 @@ export const DrawerNavigator = () => {
       />
       <Drawer.Screen
         name="Settings"
-        component={Settings}
+        component={SettingsStack}
         options={{
           drawerIcon: ({ color }) => (
             <Icon

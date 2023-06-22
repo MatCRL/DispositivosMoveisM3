@@ -1,23 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, FlatList, Image } from 'react-native';
-import { useGet } from '../api/axios';
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet, Text, FlatList, Image } from "react-native";
+import { useGet } from "../api/axios";
+import base64 from "react-native-base64";
+import { SvgXml } from "react-native-svg";
 
 const MapListScreen = () => {
-  // const [maps, setMaps] = useState([]);
-  const { data: maps, loading, error } = useGet('/maps');
-
-  useEffect(() => {
-    // const fetchMaps = async () => {
-    //   try {
-    //     const response = await data();
-    //     console.log('response.data:', response.data);
-    //     setMaps(response.data);
-    //   } catch (error) {
-    //     console.log("Error fetching maps:", error);
-    //   }
-    // };
-    // fetchMaps();
-  }, []);
+  const { data: maps, loading, error } = useGet("/maps");
 
   if (loading) {
     return (
@@ -42,13 +30,19 @@ const MapListScreen = () => {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.card}>
-            <Image
+            {/* <Image
               style={styles.thumbnail}
-              source={{ uri: item.thumbnailUrl }}
+              source={{ uri: base64.decode(item.imagemSvg) }}
+            /> */}
+            <SvgXml
+              style={styles.thumbnail}
+              xml={base64.decode(item.imagemSvg.split("base64,")[1])}
+              width={100}
+              height={100}
             />
             <View style={styles.infoContainer}>
-              <Text style={styles.name}>{item.name}</Text>
-              <Text style={styles.description}>{item.description}</Text>
+              <Text style={styles.name}>{item.nome}</Text>
+              <Text style={styles.description}>{item.descricao}</Text>
             </View>
           </View>
         )}
@@ -61,13 +55,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    marginTop: 20,
   },
   card: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 16,
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderRadius: 8,
     padding: 8,
   },
@@ -81,12 +76,12 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 4,
   },
   description: {
     fontSize: 14,
-    color: 'gray',
+    color: "gray",
   },
 });
 

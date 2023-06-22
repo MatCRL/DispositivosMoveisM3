@@ -17,4 +17,5 @@ export class Map {
 
   @OneToMany(() => Area, area => area.map)
   areas: Area[];
+  
 }

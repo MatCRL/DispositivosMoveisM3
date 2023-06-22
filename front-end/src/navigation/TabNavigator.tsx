@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon } from "native-base";
+import { Icon, useColorModeValue } from "native-base";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 
@@ -12,14 +12,18 @@ import { DrawerNavigator } from "./DrawerNavigator";
 const Tab = createBottomTabNavigator();
 
 export const TabNavigator = ({ navigator }) => {
+  const backgroundColorLabel = useColorModeValue("black", "white");
+  const backgroundColor = useColorModeValue("#00acf0", "#100");
+  const colorInactive = useColorModeValue("white", "grey");
+
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarStyle: { backgroundColor: "#00acf0" },
-        tabBarInactiveTintColor: "#fff",
-        tabBarActiveTintColor: "yellow",
+        tabBarStyle: { backgroundColor: backgroundColor },
+        tabBarActiveTintColor: backgroundColorLabel,
+        tabBarInactiveTintColor: colorInactive,
       }}
     >
       <Tab.Screen

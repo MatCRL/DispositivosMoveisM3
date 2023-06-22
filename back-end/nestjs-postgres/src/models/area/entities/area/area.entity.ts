@@ -1,5 +1,13 @@
 import { Map } from '../../../map/entities/map.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  VirtualColumn,
+  JoinColumn,
+  RelationId,
+} from 'typeorm';
 
 @Entity()
 export class Area {
@@ -12,9 +20,13 @@ export class Area {
   @Column()
   descricao: string;
 
-  @Column({ type: 'point' })
+  @Column()
   coordenadas: string;
 
-  @ManyToOne(() => Map, map => map.areas)
+  @ManyToOne(() => Map, (map) => map.areas)
+  // @JoinColumn({ name: 'mapId' })
   map: Map;
+
+  @RelationId((area: Area) => area.map)
+  mapId: number;
 }

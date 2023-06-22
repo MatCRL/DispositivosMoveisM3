@@ -28,7 +28,6 @@ import { InfinityPaginationResultType } from '../utils/types/infinity-pagination
 import { NullableType } from '../utils/types/nullable.type';
 
 @ApiBearerAuth()
-@Roles(RoleEnum.admin)
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 @ApiTags('Users')
 @Controller({
@@ -38,6 +37,7 @@ import { NullableType } from '../utils/types/nullable.type';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @Roles(RoleEnum.admin)
   @SerializeOptions({
     groups: ['admin'],
   })
@@ -47,6 +47,7 @@ export class UsersController {
     return this.usersService.create(createProfileDto);
   }
 
+  @Roles(RoleEnum.admin)
   @SerializeOptions({
     groups: ['admin'],
   })
@@ -69,6 +70,7 @@ export class UsersController {
     );
   }
 
+  @Roles(RoleEnum.admin)
   @SerializeOptions({
     groups: ['admin'],
   })
@@ -78,6 +80,7 @@ export class UsersController {
     return this.usersService.findOne({ id: +id });
   }
 
+  @Roles(RoleEnum.admin)
   @SerializeOptions({
     groups: ['admin'],
   })

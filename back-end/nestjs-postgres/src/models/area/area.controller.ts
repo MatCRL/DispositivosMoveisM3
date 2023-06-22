@@ -3,13 +3,22 @@ import { RoleEnum } from './../../roles/roles.enum';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from './../../roles/roles.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Controller, Get, Post, Put, Delete, Body, Param, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Body,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 import { AreaService } from './area.service';
 import { CreateAreaDto } from './dto/create-area.dto';
 import { UpdateAreaDto } from './dto/update-area.dto';
 
 @ApiBearerAuth()
-@Roles(RoleEnum.admin)
+// @Roles(RoleEnum.admin)
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 @ApiTags('Areas')
 @Controller({
@@ -30,12 +39,12 @@ export class AreaController {
   }
 
   @Post()
-  create(@Body() createAreaDto: CreateAreaDto) {
+  create(@Body() createAreaDto: any) {
     return this.areaService.create(createAreaDto);
   }
 
   @Put(':id')
-  update(@Param('id') id: number, @Body() updateAreaDto: UpdateAreaDto) {
+  update(@Param('id') id: number, @Body() updateAreaDto: any) {
     return this.areaService.update(id, updateAreaDto);
   }
 

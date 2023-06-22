@@ -14,6 +14,8 @@ import {
 } from "native-base";
 import { useState } from "react";
 import { usePost } from "../api/axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Alert } from "react-native";
 
 const Example = () => {
   const [email, setEmail] = useState("");
@@ -43,13 +45,22 @@ const Example = () => {
     }
   };
 
-  const handleSignIn = () => {
+  const handleSignIn = async () => {
     validateEmail();
     validatePassword();
 
     if (email && password) {
       const data = { email, password };
       postData(data);
+      const response: any = await postData(data);
+      console.log("passou", response);
+      if (response?.token) {
+        await AsyncStorage.setItem("userToken", response.token);
+        await AsyncStorage.setItem("userName", response.user.firstName);
+        Alert.alert("Login efetuado com sucesso!");
+      } else {
+        Alert.alert("Falha ao fazer login.");
+      }
     }
   };
 
@@ -87,9 +98,7 @@ const Example = () => {
               onChangeText={(value) => setEmail(value)}
               onBlur={validateEmail}
             />
-            <FormControl.ErrorMessage>
-              {emailError}
-            </FormControl.ErrorMessage>
+            <FormControl.ErrorMessage>{emailError}</FormControl.ErrorMessage>
           </FormControl>
           <FormControl isInvalid={passwordError !== ""}>
             <FormControl.Label>Senha</FormControl.Label>
@@ -99,9 +108,7 @@ const Example = () => {
               onChangeText={(value) => setPassword(value)}
               onBlur={validatePassword}
             />
-            <FormControl.ErrorMessage>
-              {passwordError}
-            </FormControl.ErrorMessage>
+            <FormControl.ErrorMessage>{passwordError}</FormControl.ErrorMessage>
             <Link
               _text={{
                 fontSize: "xs",
@@ -112,7 +119,12 @@ const Example = () => {
               mt="1"
             ></Link>
           </FormControl>
-          <Button mt="2" colorScheme="indigo" onPress={handleSignIn} isLoading={loading}>
+          <Button
+            mt="2"
+            colorScheme="indigo"
+            onPress={handleSignIn}
+            isLoading={loading}
+          >
             Entrar
           </Button>
           {error && <Text color="red.500">Erro: {error.message}</Text>}
@@ -142,9 +154,7 @@ const Example = () => {
 export const SignIn = () => {
   return (
     <NativeBaseProvider>
-      <Center flex={1} px="3">
-        <Example />
-      </Center>
+      <Example />
     </NativeBaseProvider>
   );
 };

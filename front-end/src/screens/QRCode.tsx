@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Text } from 'native-base';
-import { Camera, CameraType } from 'expo-camera';
-import { BarCodeScanner } from 'expo-barcode-scanner';
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View } from "react-native";
+import { Text } from "native-base";
+import { Camera, CameraType } from "expo-camera";
+import { BarCodeScanner } from "expo-barcode-scanner";
 
 export const QRCode = () => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -11,14 +11,14 @@ export const QRCode = () => {
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
+      setHasPermission(status === "granted");
     })();
   }, []);
 
   const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
     // Processar a mensagem do QR Code (data) aqui
-    console.log('QR Code lido:', data);
+    console.log("QR Code lido:", data);
   };
 
   if (hasPermission === null) {
@@ -45,8 +45,8 @@ export const QRCode = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
+    flexDirection: "column",
+    justifyContent: "center",
   },
   camera: {
     flex: 1,
